@@ -8,4 +8,15 @@ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 --slave 
 git clone https://github.com/lumisota/tcp-hollywood-linux.git
 cd tcp-hollywood-linux
 make deb-pkg LOCALVERSION=-hollywood KDEB_PKGVERSION=$(make kernelversion)-1
-
+sudo dpkg -i ../linux-headers-$(make kernelversion)-hollywood-g$(git 
+describe --always)_$(make kernelversion)-1_amd64.deb
+sudo dpkg -i ../linux-image-$(make kernelversion)-hollywood-g$(git 
+describe --always)_$(make kernelversion)-1_amd64.deb
+sudo cp /vagrant/grub /etc/default/grub
+sudo update-grub
+export GRUB_CONFIG=`sudo find /boot -name "grub.cfg"`
+sudo grub-set-default $(grep 'menuentry ' $GRUB_CONFIG | nl -v 0 | grep "hollywood-g$(git describe --always)'" | cut -c 6)]
+sudo apt-get clean
+sudo rm -rf *
+cat /dev/null > ~/.bash_history && history -c
+sudo reboot
