@@ -6,7 +6,7 @@ all: $(BOX)
 
 %.box:
 	vagrant up
-	vagrant package --output $<
+	vagrant package --output $@
 	vagrant destroy -f
 
 clean:

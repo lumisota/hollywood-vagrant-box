@@ -18,4 +18,6 @@ sudo apt-get clean
 cd ..
 sudo rm -rf *
 cat /dev/null > ~/.bash_history && history -c
-sudo reboot
+sudo dd if=/dev/zero of=/EMPTY bs=1M
+sudo rm -f /EMPTY
+sudo shutdown -h now
