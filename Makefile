@@ -10,4 +10,5 @@ all: $(BOX)
 	vagrant destroy -f
 
 clean:
+	vagrant destroy -f
 	rm -f $(BOX)
