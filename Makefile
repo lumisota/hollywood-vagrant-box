@@ -4,8 +4,9 @@ BOX := hollywood-$(shell git rev-parse --short $(shell git ls-remote --heads git
 
 all: $(BOX)
 
-%.box:
+hollywood-%.box:
 	vagrant up
+	vagrant ssh "sudo /vagrant/bin/tcph-install.sh $*"
 	vagrant package --output $@
 	vagrant destroy -f
 

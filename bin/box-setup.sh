@@ -6,17 +6,6 @@ sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
 sudo apt-get update
 sudo apt-get install gcc-4.9 g++-4.9 -y --force-yes
 sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9
-(git clone https://github.com/lumisota/tcp-hollywood-linux.git) || exit
-cd tcp-hollywood-linux
-make deb-pkg LOCALVERSION=-hollywood KDEB_PKGVERSION=$(make kernelversion)-1
-sudo dpkg -i ../linux-headers-$(make kernelversion)-hollywood-g$(git describe --always)_$(make kernelversion)-1_amd64.deb
-sudo dpkg -i ../linux-image-$(make kernelversion)-hollywood-g$(git describe --always)_$(make kernelversion)-1_amd64.deb
-sudo cp /vagrant/grub /etc/default/grub
-sudo update-grub
-export GRUB_CONFIG=`sudo find /boot -name "grub.cfg"`
-sudo grub-set-default $(grep 'menuentry ' $GRUB_CONFIG | nl -v 0 | grep "hollywood-g$(git describe --always)'" | cut -c 6)]
-cd ..
-sudo rm -rf *
 
 # install ffmpeg
 sudo apt-get install yasm -y --force-yes
@@ -41,9 +30,22 @@ mininet/util/install.sh -a
 
 apt-get install libcurl4-openssl-dev -y --force-yes
 
+# install netperfmeter
+
+add-apt-repository ppa:dreibh/ppa -y
+sudo apt-get update
+sudo apt-get install netperfmeter -y
+
+# install tapas dependencies
+
+sudo add-apt-repository ppa:mc3man/trusty-media -y
+sudo apt-get update
+sudo apt-get install python-twisted python-twisted-bin python-twisted-core python-twisted-web gstreamer0.10-plugins-* gstreamer0.10-ffmpeg gstreamer0.10-tools python-gst0.1 libgstreamer0.10-dev python-scipy python-psutil -y
+
 # clean up 
-sudo apt-get clean
-cat /dev/null > ~/.bash_history && history -c
-sudo dd if=/dev/zero of=/EMPTY bs=1M
-sudo rm -f /EMPTY
+
+#sudo apt-get clean
+#cat /dev/null > ~/.bash_history && history -c
+#sudo dd if=/dev/zero of=/EMPTY bs=1M
+#sudo rm -f /EMPTY
 
