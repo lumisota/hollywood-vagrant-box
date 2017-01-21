@@ -9,6 +9,13 @@ sudo dpkg -i ../linux-image-$(make kernelversion)-hollywood-g$1_$(make kernelver
 sudo cp /vagrant/grub /etc/default/grub
 sudo update-grub
 export GRUB_CONFIG=`sudo find /boot -name "grub.cfg"`
+echo $(grep 'menuentry ' $GRUB_CONFIG | nl -v 0 | grep "hollywood-g${1}'" | cut -c 6)
 sudo grub-set-default $(grep 'menuentry ' $GRUB_CONFIG | nl -v 0 | grep "hollywood-g$1'" | cut -c 6)]
 cd ..
 sudo rm -rf *
+
+sudo apt-get clean
+cat /dev/null > ~/.bash_history && history -c
+sudo dd if=/dev/zero of=/EMPTY bs=1M
+sudo rm -f /EMPTY
+

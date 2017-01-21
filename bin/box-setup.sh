@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# install Hollywood kernel
+# install kernel build tools
 sudo apt-get install dpkg-dev git -y
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
 sudo apt-get update
@@ -34,18 +34,10 @@ apt-get install libcurl4-openssl-dev -y --force-yes
 
 add-apt-repository ppa:dreibh/ppa -y
 sudo apt-get update
-sudo apt-get install netperfmeter -y
+sudo apt-get install netperfmeter=1.6.1-1ubuntu1~trusty1~ppa0 -y
 
 # install tapas dependencies
 
 sudo add-apt-repository ppa:mc3man/trusty-media -y
 sudo apt-get update
 sudo apt-get install python-twisted python-twisted-bin python-twisted-core python-twisted-web gstreamer0.10-plugins-* gstreamer0.10-ffmpeg gstreamer0.10-tools python-gst0.1 libgstreamer0.10-dev python-scipy python-psutil -y
-
-# clean up 
-
-#sudo apt-get clean
-#cat /dev/null > ~/.bash_history && history -c
-#sudo dd if=/dev/zero of=/EMPTY bs=1M
-#sudo rm -f /EMPTY
-
